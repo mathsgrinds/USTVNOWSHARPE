@@ -1,10 +1,6 @@
 Irish Version of USTVNOW
 ===
-Author: MathsGrinds, ImReallyShiny
+Author: MathsGrinds
 License: [GPL v.3](http://www.gnu.org/copyleft/gpl.html)
 
-- When possible the offical station's m3u8 stream is used
-- However, if such a stream does not exist then AerTV is used
-- Users may switch to AerTV for some station
-- No account is necessary but you may use your AerTv account
-- Enjoy IETVNOW :)
+So USTVNOW and USTVNOWPLUS both don't work anymore for live TV - so I made a simple addon so I can still watch me some live TV ;)
