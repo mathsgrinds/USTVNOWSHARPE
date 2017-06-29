@@ -1,4 +1,4 @@
-Irish Version of USTVNOW
+USTVNOW#
 ===
 Author: MathsGrinds
 License: [GPL v.3](http://www.gnu.org/copyleft/gpl.html)
