@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+    <category label="32001">
+		<setting label="USTVNOW Login Details:" type="lsep"/>
+		<setting id="email" label="Email:" type="text" default="" />
+		<setting id="password" label="Password:" type="text" default="" option="hidden" enable="!eq(-1,)" />
+		</category>
+</settings>

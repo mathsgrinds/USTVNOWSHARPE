@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.ustvnowsharpe" version="1.0.0" name="USTVNOWSHARPE" provider-name="MathsGrinds">
+    <requires>
+      <import addon="xbmc.python" version="2.7.3"/>
+      <import addon="script.module.requests" version="2.7.0"/>
+      <import addon="script.module.beautifulsoup4" version="4.3.2"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="main.py">
+      <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+      <summary lang="en">Plays live US TV from Official Sources.</summary>
+      <description lang="en">Plays live US TV (ABC, CBS, CW, FOX, NBC, PBS, My9 and MUCH MORE)</description>
+      <disclaimer lang="en">USTVNOWSHARPE is not affiliated with any TV Stations shown. I have no ownership or responsiblity over said video streams.</disclaimer>
+      <license>http://www.gnu.org/licenses/</license>
+      <source>http://github.com/MathsGrinds/USTVNOWSHARPE</source>
+      <platform>all</platform>
+    </extension>
+</addon>
