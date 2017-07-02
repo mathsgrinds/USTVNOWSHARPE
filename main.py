@@ -34,9 +34,10 @@ path = sys.path[0]+"/"
 # --------------------------------------------------------------------------------
 # SCRAPER
 # --------------------------------------------------------------------------------
-def Ustvnow(username, password):
+def Ustvnow(username, password, option):
+    station = {"ABC":"", "CBS":"", "CW":"", "FOX":"", "NBC":"", "PBS":"", "My9":""}
+    title = {"ABC":"", "CBS":"", "CW":"", "FOX":"", "NBC":"", "PBS":"", "My9":""}
     try:
-        station = {"ABC":"", "CBS":"", "CW":"", "FOX":"", "NBC":"", "PBS":"", "My9":""}
         with requests.Session() as s:
             ### Get CSRF Token ###       
             url="https://watch.ustvnow.com/account/signin"
@@ -74,6 +75,7 @@ def Ustvnow(username, password):
             while True:
                 scode = j['results'][n]['scode']
                 stream_code = j['results'][n]['stream_code']
+                title[stream_code] = str(j['results'][n]['title'])
                 url = "http://m.ustvnow.com/stream/1/live/view?scode="+scode+"&token="+token+"&br_n=Firefox&br_v=54&br_d=desktop"
                 r = s.get(url)
                 html = r.text
@@ -81,9 +83,12 @@ def Ustvnow(username, password):
                     i = json.loads(html)
                 except:
                     break
-                station[stream_code] = i["stream"]
+                station[stream_code] = i['stream']
                 n += 1
-            return station
+        if(option=="station"):
+                return station
+        else:
+            return title
     except:
         xbmc.executebuiltin('Notification(Login Failed, username and/or password is incorrect.)')
         return ""
@@ -92,14 +97,17 @@ def Ustvnow(username, password):
 # STREAMS
 # --------------------------------------------------------------------------------
 def streams():
-    station = Ustvnow(username, password)
-    return [{'name': "ABC", 'thumb': path+'resources/logos/ABC.png', 'link': station["ABC"]},
-{'name': "CBS", 'thumb': path+'resources/logos/CBS.png', 'link': station["CBS"]},
-{'name': "CW", 'thumb': path+'resources/logos/CW.png', 'link': station["CW"]},
-{'name': "FOX", 'thumb': path+'resources/logos/FOX.png', 'link': station["FOX"]},
-{'name': "NBC", 'thumb': path+'resources/logos/NBC.png', 'link': station["NBC"]},
-{'name': "PBS", 'thumb': path+'resources/logos/PBS.png', 'link': station["PBS"]},
-{'name': "My9", 'thumb': path+'resources/logos/My9.png', 'link': station["My9"]}]
+    station = Ustvnow(username, password, "station")
+    title = Ustvnow(username, password, "title")
+    return [
+{'name': "ABC - "+title["ABC"], 'thumb': path+'resources/logos/ABC.png', 'link': station["ABC"]},
+{'name': "CBS - "+title["CBS"], 'thumb': path+'resources/logos/CBS.png', 'link': station["CBS"]},
+{'name': "CW - "+title["CW"], 'thumb': path+'resources/logos/CW.png', 'link': station["CW"]},
+{'name': "FOX - "+title["FOX"], 'thumb': path+'resources/logos/FOX.png', 'link': station["FOX"]},
+{'name': "NBC - "+title["NBC"], 'thumb': path+'resources/logos/NBC.png', 'link': station["NBC"]},
+{'name': "PBS - "+title["PBS"], 'thumb': path+'resources/logos/PBS.png', 'link': station["PBS"]},
+{'name': "My9 - "+title["My9"], 'thumb': path+'resources/logos/My9.png', 'link': station["My9"]}
+]
 # --------------------------------------------------------------------------------
 # ROUTER
 # --------------------------------------------------------------------------------
