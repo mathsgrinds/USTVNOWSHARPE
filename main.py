@@ -34,9 +34,9 @@ path = sys.path[0]+"/"
 # --------------------------------------------------------------------------------
 # SCRAPER
 # --------------------------------------------------------------------------------
-def Ustvnow(username, password, option):
-    station = {"ABC":"", "CBS":"", "CW":"", "FOX":"", "NBC":"", "PBS":"", "My9":""}
-    title = {"ABC":"", "CBS":"", "CW":"", "FOX":"", "NBC":"", "PBS":"", "My9":""}
+def Ustvnow(username, password):
+    station = {}
+    title = {}
     try:
         with requests.Session() as s:
             ### Get CSRF Token ###       
@@ -85,10 +85,7 @@ def Ustvnow(username, password, option):
                     break
                 station[stream_code] = i['stream']
                 n += 1
-        if(option=="station"):
-                return station
-        else:
-            return title
+        return [station, title]
     except:
         xbmc.executebuiltin('Notification(Login Failed, username and/or password is incorrect.)')
         return ""
@@ -97,8 +94,9 @@ def Ustvnow(username, password, option):
 # STREAMS
 # --------------------------------------------------------------------------------
 def streams():
-    station = Ustvnow(username, password, "station")
-    title = Ustvnow(username, password, "title")
+    results = Ustvnow(username, password)
+    station = results[0]
+    title = results[1]
     return [
 {'name': "ABC - "+title["ABC"], 'thumb': path+'resources/logos/ABC.png', 'link': station["ABC"]},
 {'name': "CBS - "+title["CBS"], 'thumb': path+'resources/logos/CBS.png', 'link': station["CBS"]},
