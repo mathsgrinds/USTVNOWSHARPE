@@ -87,7 +87,10 @@ def Ustvnow(username, password):
                 if(quality=="SD"):
                     station[stream_code] = i['stream']
                 else:
-                    station[stream_code] = (i['stream']).replace("xxx","xxe").replace("USTVNOW1","USTVNOW4")
+                    if(stream_code != "My9"):
+                        station[stream_code] = (i['stream']).replace("xxx","xxe").replace("USTVNOW1","USTVNOW4")
+                    else:
+                        station[stream_code] = (i['stream']).replace("xxx","xxe").replace("USTVNOW1","USTVNOW3")
                 n += 1
         return [station, title]
     except:
