@@ -4,5 +4,6 @@
 		<setting label="USTVNOW Login Details:" type="lsep"/>
 		<setting id="email" label="Email:" type="text" default="" />
 		<setting id="password" label="Password:" type="text" default="" option="hidden" enable="!eq(-1,)" />
+		<setting id="quality" label="Quality:" type="select" default="SD" values="SD|HD" />
 		</category>
 </settings>

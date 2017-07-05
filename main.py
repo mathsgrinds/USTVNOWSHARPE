@@ -31,6 +31,7 @@ password = str(addon.getSetting('password'))
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
 path = sys.path[0]+"/"
+quality = str(addon.getSetting('quality'))
 # --------------------------------------------------------------------------------
 # SCRAPER
 # --------------------------------------------------------------------------------
@@ -83,7 +84,10 @@ def Ustvnow(username, password):
                     i = json.loads(html)
                 except:
                     break
-                station[stream_code] = i['stream']
+                if(quality=="SD"):
+                    station[stream_code] = i['stream']
+                else:
+                    station[stream_code] = (i['stream']).replace("xxx","xxe").replace("USTVNOW1","USTVNOW4")
                 n += 1
         return [station, title]
     except:
