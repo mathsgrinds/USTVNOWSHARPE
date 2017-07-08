@@ -32,6 +32,10 @@ __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
 path = sys.path[0]+"/"
 quality = str(addon.getSetting('quality'))
+if quality=="SD":
+    quality=1
+if quality=="HD":
+    quality=4
 # --------------------------------------------------------------------------------
 # SCRAPER
 # --------------------------------------------------------------------------------
