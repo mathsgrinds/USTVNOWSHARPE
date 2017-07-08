@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.ustvnowsharpe" version="1.0.7" name="USTVNOWSHARPE" provider-name="MathsGrinds">
+<addon id="plugin.video.ustvnowsharpe" version="1.0.9" name="USTVNOWSHARPE" provider-name="MathsGrinds">
     <requires>
       <import addon="xbmc.python" version="2.7.3"/>
       <import addon="script.module.requests" version="2.7.0"/>
