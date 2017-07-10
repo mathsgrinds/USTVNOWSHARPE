@@ -2,8 +2,8 @@
 <settings>
     <category label="32001">
 		<setting label="USTVNOW Login Details:" type="lsep"/>
-		<setting id="email" label="Email:" type="text" default="noyt@pagamenti.tk" />
-		<setting id="password" label="Password:" type="text" default="noyt@pagamenti.tk" option="hidden" enable="!eq(-1,)" />
+		<setting id="email" label="Email:" type="text" default="" />
+		<setting id="password" label="Password:" type="text" default="" option="hidden" enable="!eq(-1,)" />
 		<setting id="quality" label="Quality (1=worst, 4=best):" type="select" default="3" values="1|2|3|4" />
 		</category>
 </settings>

@@ -22,12 +22,11 @@ import cookielib
 from time import gmtime, strftime
 import json
 from urllib2 import urlopen
+import random
 # --------------------------------------------------------------------------------
-#Settings
+# Settings
 # --------------------------------------------------------------------------------
 addon = xbmcaddon.Addon()
-username = str(addon.getSetting('email'))
-password = str(addon.getSetting('password'))
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
 path = sys.path[0]+"/"
@@ -36,13 +35,15 @@ if quality=="SD":
     quality=1
 if quality=="HD":
     quality=4
+path = sys.path[0]+"/"
 # --------------------------------------------------------------------------------
-# SCRAPER
+# Scraper
 # --------------------------------------------------------------------------------
 def Ustvnow(username, password):
     station = {}
     title = {}
     try:
+        xbmc.executebuiltin('Notification(Login, Trying username and password)')
         with requests.Session() as s:
             ### Get CSRF Token ###       
             url="https://watch.ustvnow.com/account/signin"
@@ -103,14 +104,37 @@ def Ustvnow(username, password):
     except:
         xbmc.executebuiltin('Notification(Login Failed, username and/or password is incorrect.)')
         return ""
-
 # --------------------------------------------------------------------------------
-# STREAMS
+# Streams
 # --------------------------------------------------------------------------------
 def streams():
-    results = Ustvnow(username, password)
-    station = results[0]
-    title = results[1]
+    username = str(addon.getSetting('email'))
+    password = str(addon.getSetting('password'))
+    if(username==""):
+        #no username given, try predefined username and password
+        usernames = []
+        with open(path+'resources/Login.csv', mode='r') as infile:
+            reader = csv.reader(infile)
+            for row in reader:
+                usernames.append(row[0])
+        random.shuffle(usernames)
+        for username in usernames:
+            try:
+                password = username
+                results = Ustvnow(username, password)
+                station = results[0]
+                title = results[1]
+                break
+                #success
+            except:
+                next
+                #try again
+    else:
+        #username given
+        results = Ustvnow(username, password)
+        station = results[0]
+        title = results[1]
+    #return streams
     return [
 {'name': "ABC - "+title["ABC"], 'thumb': path+'resources/logos/ABC.png', 'link': station["ABC"]},
 {'name': "CBS - "+title["CBS"], 'thumb': path+'resources/logos/CBS.png', 'link': station["CBS"]},
@@ -121,7 +145,7 @@ def streams():
 {'name': "My9 - "+title["My9"], 'thumb': path+'resources/logos/My9.png', 'link': station["My9"]}
 ]
 # --------------------------------------------------------------------------------
-# ROUTER
+# Router
 # --------------------------------------------------------------------------------
 def router(paramstring):
     params = dict(parse_qsl(paramstring[1:]))
@@ -138,7 +162,7 @@ def router(paramstring):
             xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
         xbmcplugin.endOfDirectory(__handle__)
 # --------------------------------------------------------------------------------
-# MAIN
+# Main
 # --------------------------------------------------------------------------------
 if __name__ == '__main__':
     router(sys.argv[2])
