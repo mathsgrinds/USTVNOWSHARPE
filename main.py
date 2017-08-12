@@ -43,7 +43,7 @@ def Ustvnow(username, password):
     station = {}
     title = {}
     try:
-        xbmc.executebuiltin('Notification(Login, Trying username and password)')
+        #xbmc.executebuiltin('Notification(Login, Trying username and password)')
         with requests.Session() as s:
             ### Get CSRF Token ###       
             url="https://watch.ustvnow.com/account/signin"
