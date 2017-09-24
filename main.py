@@ -82,7 +82,7 @@ def Ustvnow(username, password):
                 scode = j['results'][n]['scode']
                 stream_code = j['results'][n]['stream_code']
                 title[stream_code] = str(j['results'][n]['title'])
-                url = "http://m.ustvnow.com/stream/1/live/view?scode="+scode+"&token="+token+"&br_n=Firefox&br_v=54&br_d=desktop"
+                url = "http://m.ustvnow.com/stream/1/live/view?scode="+scode+"&token="+token+"&br_n=Firefox&pr=ec&tr=expired&pl=vjs&pd=1&br_n=Firefox&br_v=54&br_d=desktop"
                 r = s.get(url)
                 html = r.text
                 try:
